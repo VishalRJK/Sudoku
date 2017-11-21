@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { startGame } from './actions/gameAction';
 import './App.css'
 
 var keys,random1,random2,random3;
 class App extends Component {
   constructor(props) {
     super(props);
-    // this.state={numbers:{'r1c1':'','r1c2':'','r1c3':'','r2c1':'2','r2c2':'','r2c3':'','r3c1':'','r3c2':'','r3c3':''}};
-    this.state={r1c1:'',r1c2:'',r1c3:'',r2c1:'',r2c2:'',r2c3:'',r3c1:'',r3c2:'',r3c3:''};
+   // this.state={numbers:{'r1c1':'','r1c2':'','r1c3':'','r2c1':'2','r2c2':'','r2c3':'','r3c1':'','r3c2':'','r3c3':''}};
+   this.state={r1c2:'',r1c3:'',r2c1:'',r2c2:'',r3c1:'',r3c3:''};
    // this.state={numbers:['','','','','','','','','']};
-    this.startGame=this.startGame.bind(this);
+   this.startGame=this.startGame.bind(this);
    // this.checkValuer1c1=this.checkValuer1c1.bind(this)
    this.checkValuer1c2=this.checkValuer1c2.bind(this);
    this.checkValuer1c3=this.checkValuer1c3.bind(this);
@@ -57,16 +59,18 @@ class App extends Component {
   }
 
   startGame(e) {
-    // debugger;
+     debugger;
     //  keys = Object.keys(this.state.numbers);
     //  random1= keys[Math.floor(Math.random()*8)];
     //  random2= keys[Math.floor(Math.random()*8)];
     //  random3= keys[Math.floor(Math.random()*8)]; 
-     random1= Math.floor(1 + Math.random()*9);
-     random2= Math.floor(1 + Math.random()*9);
-     random3= Math.floor(1 + Math.random()*9);          
-    if(random1 !== random2 && random1 !== random3 && random2 !== random3)
-    {
+    this.props.dispatch(startGame());
+    e.preventDefault();
+    //  random1= this.props.predefinedNumbers.r1c1;
+    //  random2= this.props.predefinedNumbers.r2c3;
+    //  random3= this.props.predefinedNumbers.r3c2;          
+    // if(this.props.predefinedNumbers.r1c1 !== this.props.predefinedNumbers.r2c3 && this.props.predefinedNumbers.r1c1 !== this.props.predefinedNumbers.r3c2 && this.props.predefinedNumbers.r2c3 !== this.props.predefinedNumbers.r3c2)
+    // {
     // this.setState((prevState) => {return{
     // numbers: {
     //     ...prevState.numbers,
@@ -74,14 +78,14 @@ class App extends Component {
     //    check: Math.floor((1+Math.random()*9)),
     //    random3: Math.floor((1+Math.random()*9)),
     //          }
-   this.setState({r1c1:random1,r3c2:random2,r2c3:random3});
-   e.preventDefault();
-    }
-    else
-    {    
-    this.startGame();
-    e.preventDefault();
-    }
+  // this.setState({r1c1:random1,r3c2:random2,r2c3:random3});
+    //  e.preventDefault();
+    // }
+    // else
+    // {    
+    // this.startGame();
+    // e.preventDefault();
+    // }
   }
 
   result(e) {
@@ -104,18 +108,18 @@ class App extends Component {
           <table >
             <tbody>
             <tr>
-              <td><input type='text' value ={this.state.r1c1} disabled /></td>
-              <td><input type='text' value ={this.stater1c2} onChange={this.checkValuer1c2}/></td>
-              <td><input type='text' value ={this.stater1c3} onChange={this.checkValuer1c3}/></td>
+              <td><input type='text' value ={this.props.predefinedNumbers.r1c1} disabled /></td>
+              <td><input type='text' value ={this.state.r1c2} onChange={this.checkValuer1c2}/></td>
+              <td><input type='text' value ={this.state.r1c3} onChange={this.checkValuer1c3}/></td>
             </tr>
             <tr>
               <td><input type='text' value ={this.state.r2c1} onChange={this.checkValuer2c1}/></td>
               <td><input type='text' value ={this.state.r2c2} onChange={this.checkValuer2c2}/></td>
-              <td><input type='text' value ={this.state.r2c3} disabled /></td>
+              <td><input type='text' value ={this.props.predefinedNumbers.r2c3} disabled /></td>
             </tr>
             <tr>
               <td><input type='text' value ={this.state.r3c1} onChange={this.checkValuer3c1}/></td>
-              <td><input type='text' value ={this.state.r3c2} disabled /></td>
+              <td><input type='text' value ={this.props.predefinedNumbers.r3c2} disabled /></td>
               <td><input type='text' value ={this.state.r3c3} onChange={this.checkValuer3c3}/></td>
             </tr>
             </tbody>
@@ -129,4 +133,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state,ownProps) {
+  return {
+    predefinedNumbers:state.game
+  };
+}
+
+export default connect(mapStateToProps)(App);
