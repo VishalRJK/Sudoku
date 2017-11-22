@@ -97,8 +97,32 @@ class App extends Component {
   }
 
   result(e) {
+    var r1c1=parseInt(this.props.predefinedNumbers.r1c1);
+    var r1c2=parseInt(this.props.predefinedNumbers.r1c2);
+    var r1c3=parseInt(this.props.predefinedNumbers.r1c3);
+    var r2c1=parseInt(this.props.predefinedNumbers.r2c1);
+    var r2c2=parseInt(this.props.predefinedNumbers.r2c2);
+    var r2c3=parseInt(this.props.predefinedNumbers.r2c3);
+    var r3c1=parseInt(this.props.predefinedNumbers.r3c1);
+    var r3c2=parseInt(this.props.predefinedNumbers.r3c2);
+    var r3c3=parseInt(this.props.predefinedNumbers.r3c3);
     var res = parseInt(this.props.predefinedNumbers.r1c1)+parseInt(this.props.predefinedNumbers.r1c2)+parseInt(this.props.predefinedNumbers.r1c3)+parseInt(this.props.predefinedNumbers.r2c1)+parseInt(this.props.predefinedNumbers.r2c2)+parseInt(this.props.predefinedNumbers.r2c3)+parseInt(this.props.predefinedNumbers.r3c1)+parseInt(this.props.predefinedNumbers.r3c2)+parseInt(this.props.predefinedNumbers.r3c3);
-    if(res===45)
+    var rowCheck = false;
+    var colCheck = false;
+   // var diagnolCheck = false;
+    if(r1c1+r2c1+r3c1==6 && r1c2+r2c2+r3c2==6 && r1c3+r2c3+r3c3==6)
+    rowCheck=true;
+    else
+    rowCheck=false;
+    if(r1c1+r1c2+r1c3==6 && r2c1+r2c2+r2c3==6 && r3c1+r3c2+r3c3==6)
+    colCheck=true;
+    else 
+    colCheck=false;
+   // if(r1c1+r2c2+r3c3===15)
+   // diagnolCheck=true;
+    //else
+    //diagnolCheck=false;
+    if(res===18 && rowCheck && colCheck )
     alert("you've won!!!")
     else {
       alert("please check answer again");
