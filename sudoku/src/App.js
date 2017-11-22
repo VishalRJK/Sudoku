@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { startGame } from './actions/gameAction';
+import { startGame,setValue } from './actions/gameAction';
 import './App.css'
 
 var keys,random1,random2,random3;
@@ -12,12 +12,15 @@ class App extends Component {
    // this.state={numbers:['','','','','','','','','']};
    this.startGame=this.startGame.bind(this);
    // this.checkValuer1c1=this.checkValuer1c1.bind(this)
-   this.checkValuer1c2=this.checkValuer1c2.bind(this);
-   this.checkValuer1c3=this.checkValuer1c3.bind(this);
-   this.checkValuer2c1=this.checkValuer2c1.bind(this);
-   this.checkValuer2c2=this.checkValuer2c2.bind(this);
-   this.checkValuer3c1=this.checkValuer3c1.bind(this);
-   this.checkValuer3c3=this.checkValuer3c3.bind(this);
+   
+   // moving all local state to store state
+  //  this.checkValuer1c2=this.checkValuer1c2.bind(this);
+  //  this.checkValuer1c3=this.checkValuer1c3.bind(this);
+  //  this.checkValuer2c1=this.checkValuer2c1.bind(this);
+  //  this.checkValuer2c2=this.checkValuer2c2.bind(this);
+  //  this.checkValuer3c1=this.checkValuer3c1.bind(this);
+  //  this.checkValuer3c3=this.checkValuer3c3.bind(this);
+   this.changeState=this.changeState.bind(this);
    this.result=this.result.bind(this);
   }  
 
@@ -25,37 +28,42 @@ class App extends Component {
     
   //   this.setState({r1c1: e.target.value});   
   // }
-   checkValuer1c2(e) {
+  //  checkValuer1c2(e) {
     
-    this.setState({r1c2: e.target.value});   
-  }
-   checkValuer1c3(e) {
-    
-    this.setState({r1c3: e.target.value});   
-  }
-   checkValuer2c1(e) {
-    
-    this.setState({r2c1: e.target.value});   
-  }
-   checkValuer2c2(e) {
-    
-    this.setState({r2c2: e.target.value});   
-  }
-  //  checkValuer2c3(e) {
-    
-  //   this.setState({r2c3: e.target.value});   
+  //   this.setState({r1c2: e.target.value});   
   // }
-   checkValuer3c1(e) {
+  //  checkValuer1c3(e) {
     
-    this.setState({r3c1: e.target.value});   
-  }
-  //  checkValuer3c2(e) {
-    
-  //   this.setState({r3c2: e.target.value});   
+  //   this.setState({r1c3: e.target.value});   
   // }
-   checkValuer3c3(e) {
+  //  checkValuer2c1(e) {
     
-    this.setState({r3c3: e.target.value});   
+  //   this.setState({r2c1: e.target.value});   
+  // }
+  //  checkValuer2c2(e) {
+    
+  //   this.setState({r2c2: e.target.value});   
+  // }
+  // //  checkValuer2c3(e) {
+    
+  // //   this.setState({r2c3: e.target.value});   
+  // // }
+  //  checkValuer3c1(e) {
+    
+  //   this.setState({r3c1: e.target.value});   
+  // }
+  // //  checkValuer3c2(e) {
+    
+  // //   this.setState({r3c2: e.target.value});   
+  // // }
+  //  checkValuer3c3(e) {
+    
+  //   this.setState({r3c3: e.target.value});   
+  // }
+
+  changeState(e) {
+    debugger;
+    this.props.dispatch(setValue(e.target.id,e.target.value));
   }
 
   startGame(e) {
@@ -89,7 +97,7 @@ class App extends Component {
   }
 
   result(e) {
-    var res = parseInt(this.state.r1c1)+parseInt(this.state.r1c2)+parseInt(this.state.r1c3)+parseInt(this.state.r2c1)+parseInt(this.state.r2c2)+parseInt(this.state.r2c3)+parseInt(this.state.r3c1)+parseInt(this.state.r3c2)+parseInt(this.state.r3c3);
+    var res = parseInt(this.props.predefinedNumbers.r1c1)+parseInt(this.props.predefinedNumbers.r1c2)+parseInt(this.props.predefinedNumbers.r1c3)+parseInt(this.props.predefinedNumbers.r2c1)+parseInt(this.props.predefinedNumbers.r2c2)+parseInt(this.props.predefinedNumbers.r2c3)+parseInt(this.props.predefinedNumbers.r3c1)+parseInt(this.props.predefinedNumbers.r3c2)+parseInt(this.props.predefinedNumbers.r3c3);
     if(res===45)
     alert("you've won!!!")
     else {
@@ -109,18 +117,18 @@ class App extends Component {
             <tbody>
             <tr>
               <td><input type='text' value ={this.props.predefinedNumbers.r1c1} disabled /></td>
-              <td><input type='text' value ={this.state.r1c2} onChange={this.checkValuer1c2}/></td>
-              <td><input type='text' value ={this.state.r1c3} onChange={this.checkValuer1c3}/></td>
+              <td><input type='text' id="r1c2" value ={this.props.predefinedNumbers.r1c2} onChange={this.changeState}/></td>
+              <td><input type='text' id="r1c3" value ={this.props.predefinedNumbers.r1c3} onChange={this.changeState}/></td>
             </tr>
             <tr>
-              <td><input type='text' value ={this.state.r2c1} onChange={this.checkValuer2c1}/></td>
-              <td><input type='text' value ={this.state.r2c2} onChange={this.checkValuer2c2}/></td>
+              <td><input type='text' id="r2c1" value ={this.props.predefinedNumbers.r2c1} onChange={this.changeState}/></td>
+              <td><input type='text' id="r2c2" value ={this.props.predefinedNumbers.r2c2} onChange={this.changeState}/></td>
               <td><input type='text' value ={this.props.predefinedNumbers.r2c3} disabled /></td>
             </tr>
             <tr>
-              <td><input type='text' value ={this.state.r3c1} onChange={this.checkValuer3c1}/></td>
+              <td><input type='text' id="r3c1" value ={this.props.predefinedNumbers.r3c1} onChange={this.changeState}/></td>
               <td><input type='text' value ={this.props.predefinedNumbers.r3c2} disabled /></td>
-              <td><input type='text' value ={this.state.r3c3} onChange={this.checkValuer3c3}/></td>
+              <td><input type='text' id="r3c3" value ={this.props.predefinedNumbers.r3c3} onChange={this.changeState}/></td>
             </tr>
             </tbody>
           </table>
