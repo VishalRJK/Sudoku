@@ -1,5 +1,5 @@
 
-const initialState={r1c1:'1',r1c2:'2',r1c3:'3',r2c1:'2',r2c2:'1',r2c3:'3',r3c1:'3',r3c2:'2',r3c3:'1'};
+const initialState={r1c1:'',r1c2:'',r1c3:'',r2c1:'',r2c2:'',r2c3:'',r3c1:'',r3c2:'',r3c3:''};
 var random1 ='',random2='',random3='';
 
 export default function gameReducer (state = initialState ,action) {
@@ -10,8 +10,8 @@ export default function gameReducer (state = initialState ,action) {
           random2=Math.floor(1 + Math.random()*3);
           random3=Math.floor(1 + Math.random()*3);
         }while (random1 == random2 || random2 == random3 || random1 == random3);
-       // return {...state,r1c1: random1,r2c3: random2,r3c2: random3};
-        return state;
+        return {...state,r1c1:'1',r1c2:'2',r1c3:'3',r2c1:'2',r2c2:'3',r2c3:'1',r3c1:'3',r3c2:'1',r3c3:'2'};
+        //return state;
         case 'SET_VALUE':
         debugger;
         let id = action.id;
